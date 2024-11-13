@@ -1,1 +1,10 @@
 // app global css in SCSS form
+
+@font-face {
+  font-family: shadow1;
+  src: url(./fonts/RubikDoodleShadow-Regular.ttf);
+}
+
+.shadow-text {
+  font-family: "shadow1";
+}

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-
+import SearchBar from '/src/components/SearchBar.vue'
 const leftDrawerOpen = ref(false)
 
 const toggleLeftDrawer = () => {
@@ -11,8 +11,7 @@ const toggleLeftDrawer = () => {
 
 <template>
   <q-layout view="hHh lpR fFf">
-
-    <q-header elevated class="bg-primary text-white">
+    <q-header elevated class="bg-indigo-10 text-white">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
@@ -29,6 +28,7 @@ const toggleLeftDrawer = () => {
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
       <!-- drawer content -->
+      <SearchBar class="fixed-bottom"></SearchBar>
     </q-drawer>
 
     <q-page-container>
