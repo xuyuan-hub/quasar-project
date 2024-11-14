@@ -27,10 +27,14 @@ const toggleLeftDrawer = () => {
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered :width="400">
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered elevated :width="400">
       <!-- drawer content -->
-      <ChatComponent></ChatComponent>
-      <SearchBar class="fixed-bottom"></SearchBar>
+      <q-scroll-area class="fit">
+        <div class="q-pa-sm">
+          <ChatComponent></ChatComponent>
+          <SearchBar class="fixed-bottom"></SearchBar>
+        </div>
+      </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
