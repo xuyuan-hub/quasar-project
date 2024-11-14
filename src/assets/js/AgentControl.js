@@ -7,6 +7,7 @@ import { agentInteractionControl, agentMsgControl, agentQwenMsgControl, agentSto
 import VisualizationTable from "src/components/VisualizationTable.vue"
 import VisualizationStr from "src/components/VisualizationStr.vue"
 import VisualizationHtml from "src/components/VisualizationHtml.vue";
+import { getCurrentDateTime } from "./base-function";
 
 
 const client = new OpenAI(
@@ -48,13 +49,14 @@ const actions = {
         return now.toISOString();
     },
     "visualization_html": (strHtml) => {
-        h(VisualizationHtml, { strHtml: strHtml })
+        return h(VisualizationHtml, { strHtml: strHtml })
     }
 }
 
 const agentActionControl = {
     async pushMsg(msg, role) {
-        agentMsgControl.pushMsg(agentUtils.Visualization(msg, 'str'), role)
+        const msgObj = { role: role, content: msg, stamp: getCurrentDateTime() }
+        agentMsgControl.pushMsg(agentUtils.Visualization(msgObj, 'str'), role)
         const response = await this.finalAgent(msg)
         console.debug(response)
     },
@@ -89,9 +91,8 @@ const agentActionControl = {
         console.log(firstResponse)
         // const firstResponse = await this.QwenAgent
         let assistantOutput = firstResponse.choices[0].message
-
-        // agentMsgControl.pushMsg(agentUtils.Visualization(`第${i}轮大模型输出信息：${JSON.stringify(assistantOutput)}`, 'str'), "assistant")
-        agentMsgControl.pushMsg(agentUtils.Visualization(`${assistantOutput?.content}`, 'str'), "assistant")
+        const msgObj = { content: `${assistantOutput?.content}`, role: "assistant", stamp: getCurrentDateTime() }
+        agentMsgControl.pushMsg(agentUtils.Visualization(msgObj, 'str'), "assistant")
         // agentQwenMsgControl.pushMsg(JSON.stringify(assistantOutput), "assistant")
         if (Object.is(assistantOutput.content, null)) {
             assistantOutput.content = "";
@@ -130,7 +131,10 @@ const agentActionControl = {
                     }
                 }
                 // console.log(`工具输出信息：${JSON.stringify(toolInfo)}`);
-                agentMsgControl.pushMsg(agentUtils.Visualization(toolInfo.content, 'str'), toolInfo.role)
+                // agentMsgControl.pushMsg(agentUtils.Visualization(toolInfo.content, 'str'), toolInfo.role)
+                const msgObj = { content: `${toolInfo?.content}`, role: toolInfo.role, stamp: getCurrentDateTime() }
+                agentMsgControl.pushMsg(agentUtils.Visualization(msgObj, 'str'), toolInfo.role)
+
                 console.debug(`toolInfo:${JSON.stringify(toolInfo)}`)
                 agentQwenMsgControl.pushMsg(toolInfo.content, toolInfo.role)
                 messages.push(toolInfo)
@@ -140,11 +144,12 @@ const agentActionControl = {
                 }
                 // console.debug(`second assistantOutput:${JSON.stringify(assistantOutput.content)} ${JSON.stringify(assistantOutput.role)}`)
                 agentQwenMsgControl.pushMsg(assistantOutput.content, assistantOutput.role);
-                agentMsgControl.pushMsg(agentUtils.Visualization(assistantOutput.content, 'str'), assistantOutput.role)
+                // agentMsgControl.pushMsg(agentUtils.Visualization(assistantOutput.content, 'str'), assistantOutput.role)
+                const aMsg = { content: `${assistantOutput?.content}`, role: assistantOutput.role, stamp: getCurrentDateTime() }
+                agentMsgControl.pushMsg(agentUtils.Visualization(aMsg, 'str'), "assistant")
                 messages.push(assistantOutput)
                 i += 1;
                 console.log(`第${i}轮大模型输出信息：${JSON.stringify(assistantOutput)}`)
-                // agentMsgControl.pushMsg(agentUtils.Visualization(`第${i}轮大模型输出信息：${JSON.stringify(assistantOutput)}`, 'str'), assistantOutput.role)
             }
             agentRes = JSON.stringify(assistantOutput.content).replace(/^['"]|['"]$/g, '')
         }
@@ -180,7 +185,9 @@ const agentUtils = {
                 });
             } else if (type == 'str') {
                 return h(VisualizationStr, {
-                    msg: data,
+                    msg: data.content || "",
+                    role: data.role || "",
+                    stamp: data.stamp || ""
                 })
             }
         }

@@ -11,10 +11,6 @@ const messages = computed(() => {
     <div class="message" ref="messageContainer">
         <div v-for="msg in messages" :key="msg.key" class="message-alert" role="alert">
             <div class="v-stack gap-2" style="width: 100%;">
-                <div class="row">
-                    <div class="col fw-bold">{{ msg.role }}</div>
-                    <div class="col fw-bold">{{ msg.key }}</div>
-                </div>
                 <component :is="msg.content"></component>
             </div>
         </div>
