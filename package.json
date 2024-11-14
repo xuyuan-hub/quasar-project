@@ -13,9 +13,13 @@
     "build": "quasar build"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.6.12",
     "@quasar/extras": "^1.16.4",
+    "axios": "^1.7.7",
     "gsap": "^3.12.5",
+    "openai": "^4.72.0",
     "quasar": "^2.17.2",
+    "uuid": "^11.0.3",
     "vue": "^3.4.18",
     "vue-i18n": "^10.0.0",
     "vue-router": "^4.0.12"

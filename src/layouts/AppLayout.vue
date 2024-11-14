@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import SearchBar from '/src/components/SearchBar.vue'
+import ChatComponent from 'src/components/ChatComponent.vue';
 const leftDrawerOpen = ref(false)
 
 const toggleLeftDrawer = () => {
@@ -28,6 +29,7 @@ const toggleLeftDrawer = () => {
 
     <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
       <!-- drawer content -->
+      <ChatComponent></ChatComponent>
       <SearchBar class="fixed-bottom"></SearchBar>
     </q-drawer>
 
