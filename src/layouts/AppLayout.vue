@@ -11,7 +11,7 @@ const toggleLeftDrawer = () => {
 
 
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="hHh Lpr lff">
     <q-header elevated class="bg-indigo-10 text-white">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
@@ -27,8 +27,7 @@ const toggleLeftDrawer = () => {
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered elevated :width="400">
-      <!-- drawer content -->
+    <q-drawer v-model="leftDrawerOpen" :width="400" :breakpoint="700" elevated>
       <q-scroll-area class="fit">
         <div class="q-pa-sm">
           <ChatComponent></ChatComponent>
@@ -36,7 +35,6 @@ const toggleLeftDrawer = () => {
         </div>
       </q-scroll-area>
     </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>

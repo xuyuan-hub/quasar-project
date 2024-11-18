@@ -1,39 +1,120 @@
+<template>
+    <div class="container">
+        <h3 class="title text-h2 text-teal-3 text-weight-bold shadow-text no-wrap" id="about-us-title">About Us</h3>
+        <div class="scrolling-banner">
+            <p class="banner-text">
+                Welcome to [Lab Name], a leading research laboratory at the forefront of combining Artificial
+                Intelligence with biological sciences.
+            </p>
+            <p class="banner-text">
+                Our mission is to harness the power of AI to unlock new insights
+                in biology, from understanding complex biological systems to accelerating medical discoveries.
+            </p>
+            <p class="banner-text">
+                At [Lab Name], we integrate cutting-edge machine learning techniques with biological data to address
+                some of the most pressing challenges in healthcare, genomics, and biotechnology.
+            </p>
+            <p class="banner-text">
+                Through collaboration and
+                innovation, we aim to transform the way we study life, offering novel solutions for disease
+                diagnosis, personalized medicine, and beyond.
+            </p>
+            <p class="banner-text">
+                Join us as we explore the intersection of AI and biology to create a
+                healthier, more sustainable future.
+            </p>
+        </div>
+    </div>
+</template>
+
 <script setup>
+import { onMounted } from 'vue';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import { ref, onMounted } from 'vue';
+// 注册 ScrollTrigger 插件
+gsap.registerPlugin(ScrollTrigger);
 
-const nBox = ref(null);
-const fBox = ref(null);
-const titleRef = ref(null);
-
-defineOptions({
-    name: 'IndexPage'
-});
-
-const animate = () => {
-    const tl = gsap.timeline();
-    const nBoxText = nBox.value.innerText.split('').map(char => `<span>${char}</span>`).join('');
-    const fBoxText = fBox.value.innerText.split('').map(char => `<span>${char}</span>`).join('');
-    nBox.value.innerHTML = nBoxText;
-    fBox.value.innerHTML = fBoxText;
-
-    tl.from(titleRef.value.querySelectorAll('span'), {
-        opacity: 0,
-        duration: 2,
-        stagger: 0.2
+const slideText = () => {
+    // 使用 ScrollTrigger 和 batch 来控制每个段落逐个滚动
+    const textElements = document.querySelectorAll('.banner-text');
+    gsap.utils.toArray(textElements).forEach((text, index) => {
+        gsap.fromTo(
+            text,
+            {
+                x: '100%',
+                opacity: 0,
+            },
+            {
+                x: '0', // 滚动结束位置：左侧外部
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: text, // 触发滚动的元素是每个段落
+                    start: 'top 80%', // 当段落顶部到达视口底部时开始滚动
+                    end: 'bottom center', // 当段落顶部到达视口顶部时结束滚动
+                    scrub: true, // 启用平滑滚动效果
+                    markers: false, // 关闭调试标记
+                }
+            }
+        );
     });
 }
 
+const animateText = () => {
+    gsap.fromTo("#about-us-title",
+        {
+            x: 200,
+            y: -200,
+            rotation: 45,
+            opacity: 0,
+        },
+        {
+            x: 0,
+            y: 0,
+            rotation: 0,
+            opacity: 1,
+            scrollTrigger: {
+                trigger: "#about-us-title",
+                start: 'top center',
+                end: "bottom 30%",
+                markers: true
+            }
+        })
+}
 onMounted(() => {
-    animate();
+    slideText()
+    animateText()
 });
-
 </script>
 
-<template>
-    <h2 ref="titleRef" class="row text-h2 text-blue-grey-2 text-weight-bold shadow-text no-wrap">
-        <div ref="nBox" class="text-light-blue-4 q-mr-md">Novo </div>
-        <div ref="fBox" class="text-deep-purple-5"> Force</div>
-    </h2>
-</template>
+<style scoped>
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.title {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.scrolling-banner {
+    width: 80%;
+    overflow: hidden;
+}
+
+.banner-text {
+    font-size: 1.2rem;
+    font-weight: normal;
+    padding: 10px 20px;
+    max-width: 90%;
+    color: white;
+    margin-bottom: 0px;
+}
+</style>

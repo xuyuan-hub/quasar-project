@@ -32,8 +32,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <h2 ref="titleRef" class="row text-h2 text-blue-grey-2 text-weight-bold shadow-text no-wrap">
+  <h1 ref="titleRef" class="row text-h1 text-blue-grey-2 text-weight-bold shadow-text no-wrap">
     <div ref="nBox" class="text-light-blue-4 q-mr-md">Novo </div>
     <div ref="fBox" class="text-deep-purple-5"> Force</div>
-  </h2>
+  </h1>
 </template>

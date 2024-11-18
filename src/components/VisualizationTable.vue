@@ -26,8 +26,8 @@ const formatDate = (date) => {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in parsedData" :key="row.id">
-                    <template v-for="(header) in headers">
+                <tr v-for="(row, rowIndex) in parsedData" :key="row.id || rowIndex">
+                    <template v-for="(header, headerIndex) in headers" :key="headerIndex">
                         <template v-if="row[header]">
                             <td v-if="row[header].constructor.name == 'Date'" style="white-space: nowrap;">
                                 {{ formatDate(row[header]) }}
@@ -42,5 +42,4 @@ const formatDate = (date) => {
             </tbody>
         </table>
     </div>
-
 </template>
