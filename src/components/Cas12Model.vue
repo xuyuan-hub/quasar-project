@@ -1,54 +1,59 @@
 <template>
-    <div></div>
+    <div ref="parentEle"></div>
 </template>
 
 <script setup>
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+const parentEle = ref(null)
+
 const loadModel = () => {
-    // 1. 创建场景
     const scene = new THREE.Scene();
-
     // 2. 创建镜头
-    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 150;
-
+    const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight * 0.8, 1, 1000);
+    camera.position.z = 10;
+    camera.lookAt(0, 0, 10);
     // 3. 创建Renderer
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth * 0.9, window.innerHeight * 0.9);
-    renderer.setClearColor(0xffffff, 1);  // 设置背景色为白色
-    document.body.appendChild(renderer.domElement);
-
-    // 4. 设置环境光为白色
-    const ambientLight = new THREE.AmbientLight(0xffffff, 3);  // 白色环境光，强度为1
+    renderer.setSize(window.innerWidth * 0.8, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);  // 设置背景色为白色
+    parentEle.value.appendChild(renderer.domElement);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
     scene.add(ambientLight);
-
-    // 5. 加载模型
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+    directionalLight.position.set(10, 10, 10);
+    scene.add(directionalLight);
     const loader = new GLTFLoader();
-    loader.load(
-        'public/3d/cas1.glb', // 模型文件的路径
-        (gltf) => {
-            // 模型加载成功时的回调
-            const model = gltf.scene;
-            scene.add(model); // 将模型添加到场景中
-            animate(); // 调用渲染函数
-        },
-        (xhr) => {
-            // 进度回调
-            console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-        },
-        (error) => {
-            // 错误回调
-            console.error('An error occurred:', error);
-        }
-    );
+    loader.load('3d/sixaxisrobot.gltf', (gltf) => {
+        const model = gltf.scene;
+        scene.add(model);
+        model.rotation.x = 0.628;
+        // 如果有动画
+        const mixer = new THREE.AnimationMixer(model);
+        gltf.animations.forEach((clip) => {
+            mixer.clipAction(clip).play();
+        });
 
-    // 渲染函数
-    function animate() {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-    }
+        // 渲染循环
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 更新动画
+            const delta = clock.getDelta();
+            if (mixer) mixer.update(delta);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    }, undefined, (error) => {
+        console.error('An error occurred while loading the model:', error);
+    });
 }
 
 onMounted(() => {
