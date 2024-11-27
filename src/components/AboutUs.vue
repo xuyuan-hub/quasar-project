@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="q-mb-xl">
         <h3 class="title text-h2 text-teal-3 text-weight-bold shadow-text no-wrap" id="about-us-title">About Us</h3>
         <div class="scrolling-banner">
             <p class="banner-text">
@@ -63,9 +63,9 @@ const slideText = () => {
 const animateText = () => {
     gsap.fromTo("#about-us-title",
         {
-            x: 200,
+            x: 0,
             y: -200,
-            rotation: 45,
+            rotation: 0,
             opacity: 0,
         },
         {
@@ -73,11 +73,12 @@ const animateText = () => {
             y: 0,
             rotation: 0,
             opacity: 1,
+            ease: "bounce.out",
             scrollTrigger: {
                 trigger: "#about-us-title",
                 start: 'top center',
                 end: "bottom 30%",
-                markers: true
+                markers: false,
             }
         })
 }

@@ -1,7 +1,7 @@
 <template>
     <div style="overflow: hidden;">
         <div class="container" id="horizontal-div">
-            <section class="panel gradient-2r-indigo-8-6 flex flex-center">
+            <section ref='firstSpanRef' class="panel gradient-2r-indigo-8-6 flex flex-center">
                 <h2>1</h2>
             </section>
             <section class="panel gradient-2r-indigo-6-4 flex flex-center">
@@ -18,12 +18,14 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // 注册 ScrollTrigger 插件
 gsap.registerPlugin(ScrollTrigger);
+
+const firstSpanRef = ref(null)
 
 onMounted(() => {
     let sections = gsap.utils.toArray(".panel"); // 获取所有 panel 元素
@@ -38,9 +40,11 @@ onMounted(() => {
             scrub: 0.1, // 滚动同步（0.1 控制平滑度）
             start: "top top", // 起始位置：容器顶部对齐视口顶部
             end: `+=${500 * (sections.length - 1)}`, // 根据面板数量调整滚动距离
-            markers: true // 启用滚动调试标记
+            // markers: true // 启用滚动调试标记
         }
     });
+
+
 });
 </script>
 

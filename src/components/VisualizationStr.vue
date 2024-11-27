@@ -1,7 +1,7 @@
 <template>
     <div>
         <q-chat-message :name="props.role" :text="formattedMessages" :stamp="props.stamp" :sent="props.role === 'user'"
-            :text-html="true" />
+            size="10" :text-html="true" />
     </div>
 </template>
 
