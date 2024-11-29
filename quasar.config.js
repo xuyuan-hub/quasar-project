@@ -43,9 +43,9 @@ module.exports = configure(function (/* ctx */) {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node20",
       },
-      publicPath: "/",
+      publicPath: "/quasar-project/",
       extendWebpack(cfg) {
-        cfg.output.publicPath = "/";
+        cfg.output.publicPath = "/quasar-project";
       },
 
       vueRouterMode: "hash", // available values: 'hash', 'history'
