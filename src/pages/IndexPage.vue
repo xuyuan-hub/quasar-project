@@ -3,6 +3,7 @@ import MembersDetail from 'src/components/MembersDetail.vue';
 import IndexTitle from '../components/IndexTitle.vue'
 import Cas12Model from 'src/components/RobotArm.vue';
 import AIAgent from 'src/components/AIAgent.vue';
+import TeamMemebers from 'src/pages/TeamMemebers.vue';
 </script>
 
 <template>
@@ -16,6 +17,9 @@ import AIAgent from 'src/components/AIAgent.vue';
     </q-page>
     <q-page>
       <a-i-agent></a-i-agent>
+    </q-page>
+    <q-page>
+      <team-memebers></team-memebers>
     </q-page>
   </div>
 </template>

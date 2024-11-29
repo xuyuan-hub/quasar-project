@@ -19,10 +19,6 @@
                 innovation, we aim to transform the way we study life, offering novel solutions for disease
                 diagnosis, personalized medicine, and beyond.
             </p>
-            <p class="banner-text">
-                Join us as we explore the intersection of AI and biology to create a
-                healthier, more sustainable future.
-            </p>
         </div>
     </div>
 </template>

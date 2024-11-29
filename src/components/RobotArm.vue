@@ -1,5 +1,5 @@
 <template>
-    <div ref="parentEle"></div>
+    <div ref="parentEle" id="robot-arm"></div>
 </template>
 <script setup>
 import * as THREE from 'three'
@@ -7,6 +7,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { computed, onMounted, ref } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { webCacheControl } from 'src/store/webStore';
 
 const parentEle = ref(null);
 let mixer, renderer, scene, camera, cube;
@@ -38,8 +39,8 @@ const animateModel = () => {
                 mixer.update(deltaTime);
                 renderer.render(scene, camera);
                 renderer.render(scene, camera);
-            }
-        },
+            },
+        }
     });
 }
 
@@ -65,9 +66,9 @@ const animateCamera = () => {
         scrollTrigger: {
             trigger: triggerElement,
             start: "bottom+=200% 50%",
-            end: "bottom+=290% 50%",
-            scrub: 1,
-            markers: true,
+            end: "bottom+=260% 50%",
+            scrub: 0.2,
+            markers: false,
             onEnter: () => {
                 console.debug('Entered');
                 islookAtCube = true
@@ -88,6 +89,20 @@ const animateCamera = () => {
             }
             camera.updateProjectionMatrix();
             renderer.render(scene, camera);
+        },
+        onComplete: () => {
+            const vector = new THREE.Vector3();
+            vector.setFromMatrixPosition(cube.matrixWorld);
+            const screenPosition = vector.clone().project(camera);
+
+            // 将归一化的设备坐标转换为实际的屏幕坐标
+            const widthHalf = 0.5 * renderer.domElement.width;
+            const heightHalf = 0.5 * renderer.domElement.height;
+
+            const x = screenPosition.x * widthHalf + widthHalf;
+            const y = -screenPosition.y * heightHalf + heightHalf;
+            webCacheControl.set('x', x);
+            webCacheControl.set('y', y);
         }
     });
 };
@@ -101,7 +116,7 @@ const loadModel = () => {
     camera.lookAt(2, 1, 0);
 
     // 创建 Renderer
-    renderer = new THREE.WebGLRenderer({ alpha: true }); // 设置透明背景
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, }); // 设置透明背景
     renderer.setSize(window.innerWidth, window.innerHeight);
     parentEle.value.appendChild(renderer.domElement);
 
@@ -111,14 +126,14 @@ const loadModel = () => {
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(10, 10, 10);
     scene.add(directionalLight);
-    const axesHelper = new THREE.AxesHelper(5); // 参数 5 为坐标轴长度
-    scene.add(axesHelper);
+    // const axesHelper = new THREE.AxesHelper(5); // 参数 5 为坐标轴长度
+    // scene.add(axesHelper);
 
     // 加载模型
     const loader = new GLTFLoader();
     loader.load('3d/grap2.glb', (gltf) => {
-        const model = gltf.scene;
-        scene.add(model);
+        let model = gltf.scene
+        scene.add(model)
         cube = model.getObjectByName('cube');
         // console.log(cube.position);
         // 调整模型方向和位置
@@ -146,6 +161,5 @@ const loadModel = () => {
 
 onMounted(() => {
     loadModel();
-
 });
 </script>
