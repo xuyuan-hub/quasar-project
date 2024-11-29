@@ -1,26 +1,18 @@
 <template>
     <div style="overflow: hidden;">
-        <div class="container" id="horizontal-div">
+        <div class="container lexend-text" id="horizontal-div">
             <section ref='firstSpanRef' class="panel gradient-2r-indigo-8-6 flex justify-end">
                 <div class="box-container">
                     <div ref='greenBoxRef' class="box bg-green-6"></div>
                 </div>
-                <h2>致力于开发
-                    <span class="text-purple-4 most-text">最</span>
-                    先进的生物制药技术
+                <h2 class="text-no-wrap">developing
+                    <span class="text-purple-4 most-text">the most</span>
+                    advanced technologies
                 </h2>
             </section>
-            <section class="panel gradient-2r-indigo-6-4 flex flex-center">
-                <h2>高效研发</h2>
-                <p>通过高效的团队合作和先进的实验设备，我们能够快速推进项目并取得突破性成果。</p>
-            </section>
-            <section class="panel gradient-2r-indigo-4-2 flex flex-center">
-                <h2>精准医疗</h2>
-                <p>我们的研究专注于精准医疗，旨在为患者提供个性化的治疗方案，提高治疗效果。</p>
-            </section>
-            <section class="panel gradient-2r-indigo-2-0 flex flex-center">
-                <h2>全球合作</h2>
-                <p>我们与全球领先的科研机构和企业紧密合作，共同推动生物制药领域的进步。</p>
+            <section ref='secondSpanRef' class="panel bg-indigo-6 flex " style="width: 400%;">
+                <h2>&nbsp;Through efficient teamwork and state-of-the-art laboratory equipment, we are able to rapidly
+                    advance projects and achieve groundbreaking results.</h2>
             </section>
         </div>
     </div>
@@ -37,21 +29,32 @@ gsap.registerPlugin(ScrollTrigger);
 
 const firstSpanRef = ref(null)
 const greenBoxRef = ref(null)
+const secondSpanRef = ref(null)
 
 onMounted(() => {
     let sections = gsap.utils.toArray(".panel"); // 获取所有 panel 元素
 
     // 创建 ScrollTrigger 和 GSAP 动画
-    gsap.to(sections, {
-        xPercent: -100 * (sections.length - 1), // 让最后一个面板滑出视口
+    gsap.to(firstSpanRef.value, {
+        xPercent: -100, // 让最后一个面板滑出视口
         ease: "none", // 不进行加速
         scrollTrigger: {
-            trigger: "#horizontal-div", // 触发滚动的元素是容器
-            pin: true, // 固定容器
-            scrub: 0.1, // 滚动同步（0.1 控制平滑度）
-            start: "top top", // 起始位置：容器顶部对齐视口顶部
-            end: `+=${500 * (sections.length - 1)}`, // 根据面板数量调整滚动距离
+            trigger: "#horizontal-div",
+            start: "top top",
+            scrub: 0.1,
+            end: `+=1000`, // 根据面板数量调整滚动距离
             // markers: true // 启用滚动调试标记
+        }
+    });
+    gsap.to(secondSpanRef.value, {
+        xPercent: -100, // 让最后一个面板滑出视口
+        ease: "none", // 不进行加速
+        scrollTrigger: {
+            trigger: "#horizontal-div",
+            scrub: 0.1,
+            pin: true,
+            end: "+=4000",
+            markers: true // 启用滚动调试标记
         }
     });
     const getInitialPosition = () => {
@@ -99,7 +102,7 @@ onMounted(() => {
 
 <style scoped>
 .container {
-    width: 400%;
+    width: 500%;
     /* 容器宽度是面板宽度的5倍 */
     height: 100vh;
     display: flex;
@@ -117,7 +120,7 @@ onMounted(() => {
 
 .panel h2 {
     color: white;
-    font-size: 5rem;
+    font-size: 4.5rem;
     font-weight: 400;
     z-index: 2;
 }
