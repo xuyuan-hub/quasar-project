@@ -8,15 +8,16 @@ import TeamMemebers from 'src/pages/TeamMemebers.vue';
 
 <template>
   <div>
-    <div class="flex gradient-2b-indigo-10-9" id="index-page">
+    <a-i-agent></a-i-agent>
+    <div class="flex gradient-2b-indigo-10-9 gt-sm" id="index-page">
       <index-title class="frontground"></index-title>
-      <cas12-model class="background"></cas12-model>
+      <cas12-model class="background gt-md"></cas12-model>
+    </div>
+    <div class="flex gradient-2b-indigo-10-9 lt-md">
+      <index-title class="frontground"></index-title>
     </div>
     <q-page>
       <members-detail></members-detail>
-    </q-page>
-    <q-page>
-      <a-i-agent></a-i-agent>
     </q-page>
     <q-page>
       <team-memebers></team-memebers>

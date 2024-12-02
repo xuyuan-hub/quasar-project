@@ -56,21 +56,40 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="des">
-    <h1 ref="titleRef" class="text-title row text-h1 text-blue-grey-2 text-weight-bold shadow-text no-wrap">
-      <div ref="nBox" class="text-light-blue-4 q-mr-md">Novo </div>
-      <div ref="fBox" class="text-deep-purple-5"> Force</div>
-    </h1>
-    <p ref="desRef" class="row web-des">
-      Welcome to novo force, a leading research laboratory at the forefront of combining
-      Artificial
-      Intelligence with biological sciences.
-    </p>
-  </div>
-  <div class="about-container">
-    <AboutUs class="about"></AboutUs>
+  <div class="gt-sm">
+    <div class="des">
+      <h1 ref="titleRef" class="text-title row text-h1 text-blue-grey-2 text-weight-bold shadow-text no-wrap">
+        <div ref="nBox" class="text-light-blue-4 q-mr-md">Novo </div>
+        <div ref="fBox" class="text-deep-purple-5"> Force</div>
+      </h1>
+      <p ref="desRef" class="row web-des">
+        Welcome to novo force, a leading research laboratory at the forefront of combining
+        Artificial
+        Intelligence with biological sciences.
+      </p>
+    </div>
+    <div class="about-container">
+      <AboutUs class="about"></AboutUs>
+    </div>
   </div>
 
+  <div class="lt-md">
+    <div class="des-md">
+      <h1 ref="titleRef"
+        class="text-title row text-h4 text-blue-grey-2 text-weight-bold shadow-text no-wrap justify-center">
+        <div ref="nBox" class="text-light-blue-4 q-mr-md">Novo </div>
+        <div ref="fBox" class="text-deep-purple-5"> Force</div>
+      </h1>
+      <p class="row text-white">
+        Welcome to novo force, a leading research laboratory at the forefront of combining
+        Artificial
+        Intelligence with biological sciences.
+      </p>
+    </div>
+    <div class="about-container" style="width: 80vw;">
+      <AboutUs class="about"></AboutUs>
+    </div>
+  </div>
 </template>
 <style>
 .text-title {
@@ -106,6 +125,12 @@ onMounted(() => {
 
 .des {
   width: 60vw;
+  margin-left: 10vw;
+  height: 200vh;
+}
+
+.des-md {
+  width: 80vw;
   margin-left: 10vw;
   height: auto;
 }

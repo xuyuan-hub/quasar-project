@@ -1,5 +1,5 @@
 <template>
-    <div class="q-mb-xl">
+    <div class="q-mb-xl gt-sm">
         <h3 class="title text-h2 text-teal-3 text-weight-bold shadow-text no-wrap" id="about-us-title">About Us</h3>
         <div class="scrolling-banner">
             <p class="banner-text">
@@ -15,6 +15,29 @@
                 some of the most pressing challenges in healthcare, genomics, and biotechnology.
             </p>
             <p class="banner-text">
+                Through collaboration and
+                innovation, we aim to transform the way we study life, offering novel solutions for disease
+                diagnosis, personalized medicine, and beyond.
+            </p>
+        </div>
+    </div>
+    <div class="q-mb-xl lt-md">
+        <h3 class="title text-h4 text-teal-3 text-weight-bold shadow-text no-wrap text-center" id="about-us-title">About
+            Us</h3>
+        <div class="scrolling-banner text-white">
+            <p>
+                Welcome to [Lab Name], a leading research laboratory at the forefront of combining Artificial
+                Intelligence with biological sciences.
+            </p>
+            <p>
+                Our mission is to harness the power of AI to unlock new insights
+                in biology, from understanding complex biological systems to accelerating medical discoveries.
+            </p>
+            <p>
+                At [Lab Name], we integrate cutting-edge machine learning techniques with biological data to address
+                some of the most pressing challenges in healthcare, genomics, and biotechnology.
+            </p>
+            <p>
                 Through collaboration and
                 innovation, we aim to transform the way we study life, offering novel solutions for disease
                 diagnosis, personalized medicine, and beyond.

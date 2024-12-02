@@ -1,20 +1,26 @@
 <template>
-    <div style="overflow: hidden;">
-        <div class="container lexend-text" id="horizontal-div">
-            <section ref='firstSpanRef' class="panel gradient-2r-indigo-8-6 flex justify-end">
-                <div class="box-container">
-                    <div ref='greenBoxRef' class="box bg-green-6"></div>
-                </div>
-                <h2 class="text-no-wrap">developing
-                    <span class="text-purple-4 most-text">the most</span>
-                    advanced technologies
-                </h2>
-            </section>
-            <section ref='secondSpanRef' class="panel bg-indigo-6 flex " style="width: 400%;">
-                <h2>&nbsp;Through efficient teamwork and state-of-the-art laboratory equipment, we are able to rapidly
-                    advance projects and achieve groundbreaking results.</h2>
-            </section>
+    <div class="gt-md">
+        <div style="overflow: hidden;">
+            <div class="container lexend-text" id="horizontal-div">
+                <section ref='firstSpanRef' class="panel gradient-2r-indigo-8-6 flex justify-end">
+                    <div class="box-container">
+                        <div ref='greenBoxRef' class="box bg-green-6"></div>
+                    </div>
+                    <h2 class="text-no-wrap">developing
+                        <span class="text-purple-4 most-text">the most</span>
+                        advanced technologies
+                    </h2>
+                </section>
+                <section ref='secondSpanRef' class="panel bg-indigo-6 flex " style="width: 400%;">
+                    <h2>&nbsp;{{ restP }}</h2>
+                </section>
+            </div>
         </div>
+    </div>
+    <div class="lt-md">
+        <p class="text-no-wrap">developing the most advanced technologies
+        </p>
+        <p>{{ restP }}</p>
     </div>
 </template>
 
@@ -24,12 +30,16 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { webCacheControl } from 'src/store/webStore';
 
+
 // 注册 ScrollTrigger 插件
 gsap.registerPlugin(ScrollTrigger);
 
 const firstSpanRef = ref(null)
 const greenBoxRef = ref(null)
 const secondSpanRef = ref(null)
+const props = defineProps('first-p', 'rest-p')
+
+const restP = "Through efficient teamwork and state-of-the-art laboratory equipment, we are able to rapidly advance projects and achieve groundbreaking results."
 
 onMounted(() => {
     let sections = gsap.utils.toArray(".panel"); // 获取所有 panel 元素
