@@ -47,17 +47,22 @@ const animateModel = () => {
 const animateCamera = () => {
     const triggerElement = parentEle.value;
     var islookAtCube = false
+    let lastScrollProgress = 0
+    let targetX, targetY, targetZ
+    console.log(`srcCube x:${cube.position.x},y:${cube.position.y},z:${cube.position.z}`)
+
     gsap.to(camera.position, {
         x: cube.position.x,
         y: cube.position.y,
         z: cube.position.z,
         imageRendering: false,
+
         scrollTrigger: {
             trigger: triggerElement,
-            start: "bottom+=200% 50%",
-            end: "bottom+=280% 50%",
+            start: "bottom+=180% 50%",
+            end: "bottom+=260% 50%",
             scrub: true,
-            markers: false,
+            markers: true,
             onEnter: () => {
                 islookAtCube = true
             },
@@ -66,8 +71,15 @@ const animateCamera = () => {
                 camera.lookAt(2, 1, 0);
                 camera.updateProjectionMatrix()
             },
-            onUpdate: () => {
-                camera.lookAt(cube.position.x, cube.position.y, cube.position.z - 0.01);
+            onUpdate: (self) => {
+                const currentProgress = self.progress;
+                if (currentProgress <= 0.5) {
+                    targetX = 2 + (cube.position.x - 2) * 2 * currentProgress
+                    targetY = 1 + (cube.position.y - 1) * 2 * currentProgress
+                    targetZ = 2 * cube.position.z * currentProgress
+                }
+                // console.debug(`x:${targetX},y:${targetY},z:${targetZ}`)
+                camera.lookAt(targetX, targetY, targetZ);
                 camera.updateProjectionMatrix()
                 renderer.render(scene, camera);
             }
@@ -77,8 +89,8 @@ const animateCamera = () => {
         fov: 3,
         scrollTrigger: {
             trigger: triggerElement,
-            start: "bottom+=200% 50%",
-            end: "bottom+=280% 50%",
+            start: "bottom+=180% 50%",
+            end: "bottom+=260% 50%",
             scrub: true,
             markers: false,
             onUpdate: () => {
