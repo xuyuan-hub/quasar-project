@@ -67,7 +67,7 @@ onMounted(() => {
             scrub: 0.1,
             pin: true,
             end: "+=4000",
-            markers: true // 启用滚动调试标记
+            markers: false // 启用滚动调试标记
         }
     });
     const tl = gsap.timeline({

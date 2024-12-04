@@ -49,7 +49,7 @@ module.exports = configure(function (/* ctx */) {
         cfg.output.publicPath = "/quasar-project";
       },
 
-      vueRouterMode: "hash", // available values: 'hash', 'history'
+      // vueRouterMode: "history", // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,

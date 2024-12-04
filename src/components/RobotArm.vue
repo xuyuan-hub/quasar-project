@@ -48,7 +48,9 @@ const animateCamera = () => {
     const triggerElement = parentEle.value;
     var islookAtCube = false
     let lastScrollProgress = 0
-    let targetX, targetY, targetZ
+    var targetX = 2
+    var targetY = 1
+    var targetZ = 0
     console.log(`srcCube x:${cube.position.x},y:${cube.position.y},z:${cube.position.z}`)
 
     gsap.to(camera.position, {
@@ -62,7 +64,7 @@ const animateCamera = () => {
             start: "bottom+=180% 50%",
             end: "bottom+=260% 50%",
             scrub: true,
-            markers: true,
+            markers: false,
             onEnter: () => {
                 islookAtCube = true
             },

@@ -2,13 +2,12 @@
 import MembersDetail from 'src/components/MembersDetail.vue';
 import IndexTitle from '../components/IndexTitle.vue'
 import Cas12Model from 'src/components/RobotArm.vue';
-import AIAgent from 'src/components/AIAgent.vue';
 import TeamMemebers from 'src/pages/TeamMemebers.vue';
 </script>
 
 <template>
   <div>
-    <a-i-agent></a-i-agent>
+
     <div class="flex gradient-2b-indigo-10-9 gt-sm" id="index-page">
       <index-title class="frontground"></index-title>
       <cas12-model class="background gt-sm"></cas12-model>
