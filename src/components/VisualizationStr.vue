@@ -21,7 +21,7 @@ const formattedMessages = computed(() => {
         return parts.map((part) => {
             if (part.startsWith('```') && part.endsWith('```')) {
                 const codeBlock = part.slice(3, -3);
-                const [lang, ...lines] = codeBlock.split('\n');
+                let [lang, ...lines] = codeBlock.split('\n');
                 const code = lines.join('\n');
                 if (lang == 'vue') {
                     lang == 'html'

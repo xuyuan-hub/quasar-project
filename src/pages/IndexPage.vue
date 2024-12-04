@@ -4,6 +4,8 @@ import IndexTitle from '../components/IndexTitle.vue'
 import Cas12Model from 'src/components/RobotArm.vue';
 import AIAgent from 'src/components/AIAgent.vue';
 import TeamMemebers from 'src/pages/TeamMemebers.vue';
+import AnimateSvg from 'src/components/Animate/AnimateSvg.vue';
+import AnimateWithScrollerTrigger from 'src/components/Animate/AnimateWithScrollerTrigger.vue';
 </script>
 
 <template>
@@ -11,7 +13,7 @@ import TeamMemebers from 'src/pages/TeamMemebers.vue';
     <a-i-agent></a-i-agent>
     <div class="flex gradient-2b-indigo-10-9 gt-sm" id="index-page">
       <index-title class="frontground"></index-title>
-      <cas12-model class="background gt-md"></cas12-model>
+      <cas12-model class="background gt-sm"></cas12-model>
     </div>
     <div class="flex gradient-2b-indigo-10-9 lt-md">
       <index-title class="frontground"></index-title>
@@ -20,7 +22,9 @@ import TeamMemebers from 'src/pages/TeamMemebers.vue';
       <members-detail></members-detail>
     </q-page>
     <q-page>
-      <team-memebers></team-memebers>
+      <!-- <team-memebers></team-memebers> -->
+      <animate-svg></animate-svg>
+      <animate-with-scroller-trigger></animate-with-scroller-trigger>
     </q-page>
   </div>
 </template>

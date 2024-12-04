@@ -1,5 +1,5 @@
 <template>
-    <div class="gt-md">
+    <div class="gt-sm">
         <div style="overflow: hidden;">
             <div class="container lexend-text" id="horizontal-div">
                 <section ref='firstSpanRef' class="panel gradient-2r-indigo-8-6 flex justify-end">
@@ -8,11 +8,11 @@
                     </div>
                     <h2 class="text-no-wrap">developing
                         <span class="text-purple-4 most-text">the most</span>
-                        advanced technologies
+                        advanced technologies.
                     </h2>
                 </section>
                 <section ref='secondSpanRef' class="panel bg-indigo-6 flex " style="width: 400%;">
-                    <h2>&nbsp;{{ restP }}</h2>
+                    <h2 class="q-ml-sm rest-p">{{ restP }}</h2>
                 </section>
             </div>
         </div>
@@ -42,8 +42,6 @@ const props = defineProps('first-p', 'rest-p')
 const restP = "Through efficient teamwork and state-of-the-art laboratory equipment, we are able to rapidly advance projects and achieve groundbreaking results."
 
 onMounted(() => {
-    let sections = gsap.utils.toArray(".panel"); // 获取所有 panel 元素
-
     // 创建 ScrollTrigger 和 GSAP 动画
     gsap.to(firstSpanRef.value, {
         xPercent: -100, // 让最后一个面板滑出视口
@@ -107,6 +105,25 @@ onMounted(() => {
         }
     });
 
+    // const restParagraph = document.querySelector('.rest-p')
+    // const splitRP = restParagraph.innerText.split(' ').map(char => `<span>${char}</span>`).join(" ")
+    // restParagraph.innerHTML = splitRP
+    // gsap.utils.toArray(restParagraph.querySelectorAll('span')).forEach((ele) => {
+    //     gsap.from(
+    //         ele,
+    //         {
+    //             y: 200,
+    //             opacity: 0,
+    //             scrollTrigger: {
+    //                 trigger: ele,
+    //                 start: "top center",
+    //                 end: "bottom center",
+    //                 markers: true
+    //             }
+    //         }
+
+    //     )
+    // })
 });
 </script>
 
@@ -133,6 +150,12 @@ onMounted(() => {
     font-size: 4.5rem;
     font-weight: 400;
     z-index: 2;
+}
+
+@media (max-width: 1440px) {
+    .panel h2 {
+        font-size: 3rem;
+    }
 }
 
 .panel p {
