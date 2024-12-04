@@ -47,16 +47,16 @@ onMounted(() => {
             scrub: 0.1,
             end: `+=1000`, // 根据面板数量调整滚动距离
             // markers: true // 启用滚动调试标记
-            onLeave: () => {
-                const RobotArm = document.getElementById('robot-arm');
-                // 显示 robot-arm
-                RobotArm.style.display = 'none';
-            },
-            onLeaveBack: () => {
-                const RobotArm = document.getElementById('robot-arm');
-                // 显示 robot-arm
-                RobotArm.style.display = 'block';
-            }
+            // onLeave: () => {
+            //     const RobotArm = document.getElementById('robot-arm');
+            //     // 显示 robot-arm
+            //     RobotArm.style.display = 'none';
+            // },
+            // onLeaveBack: () => {
+            //     const RobotArm = document.getElementById('robot-arm');
+            //     // 显示 robot-arm
+            //     RobotArm.style.display = 'block';
+            // }
         }
     });
     gsap.to(secondSpanRef.value, {
