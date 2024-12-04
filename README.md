@@ -1,7 +1,5 @@
 # YoltechLab (quasar-project)
 
-Yoltech AI Lab
-
 ## Install the dependencies
 ```bash
 yarn
@@ -39,3 +37,7 @@ quasar build
 
 ### Customize the configuration
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+
+### demo
+
+See [Novo Force (xuyuan-hub.github.io)](https://xuyuan-hub.github.io/quasar-project/#/)
