@@ -5,9 +5,6 @@ import { ref, onMounted } from 'vue';
 
 import AboutUs from './AboutUs.vue';
 
-const nBox = ref(null);
-const fBox = ref(null);
-const titleRef = ref(null);
 const desRef = ref(null);
 
 const props = defineProps(['title']);
@@ -15,12 +12,15 @@ gsap.registerPlugin(ScrollTrigger)
 
 const animate = () => {
   const tl = gsap.timeline();
-  const nBoxText = nBox.value.innerText.split('').map(char => `<span>${char}</span>`).join('');
-  const fBoxText = fBox.value.innerText.split('').map(char => `<span>${char}</span>`).join('');
-  nBox.value.innerHTML = nBoxText;
-  fBox.value.innerHTML = fBoxText;
+  const nBox = document.querySelector('.nBox')
+  const fBox = document.querySelector('.fBox')
+  const textTitle = document.querySelector('.text-title')
+  const nBoxText = nBox.innerText.split('').map(char => `<span>${char}</span>`).join('');
+  const fBoxText = fBox.innerText.split('').map(char => `<span>${char}</span>`).join('');
+  nBox.innerHTML = nBoxText;
+  fBox.innerHTML = fBoxText;
 
-  tl.from(titleRef.value.querySelectorAll('span'), {
+  tl.from(textTitle.querySelectorAll('span'), {
     opacity: 0,
     duration: 2,
     stagger: 0.2
@@ -58,9 +58,9 @@ onMounted(() => {
 <template>
   <div class="gt-sm">
     <div class="des">
-      <h1 ref="titleRef" class="text-title row text-h1 text-blue-grey-2 text-weight-bold shadow-text no-wrap">
-        <div ref="nBox" class="text-light-blue-4 q-mr-md">Novo </div>
-        <div ref="fBox" class="text-deep-purple-5"> Force</div>
+      <h1 class="text-title row text-h1 text-blue-grey-2 text-weight-bold shadow-text no-wrap">
+        <div class="nBox text-light-blue-4 q-mr-md">Novo </div>
+        <div class="fBox text-deep-purple-5"> Force</div>
       </h1>
       <p ref="desRef" class="row web-des">
         Welcome to novo force, a leading research laboratory at the forefront of combining
@@ -75,10 +75,9 @@ onMounted(() => {
 
   <div class="lt-md">
     <div class="des-md">
-      <h1 ref="titleRef"
-        class="text-title row text-h4 text-blue-grey-2 text-weight-bold shadow-text no-wrap justify-center">
-        <div ref="nBox" class="text-light-blue-4 q-mr-md">Novo </div>
-        <div ref="fBox" class="text-deep-purple-5"> Force</div>
+      <h1 class="text-title row text-h4 text-blue-grey-2 text-weight-bold shadow-text no-wrap justify-center">
+        <div class="nBox text-light-blue-4 q-mr-md">Novo </div>
+        <div class="fBox text-deep-purple-5"> Force</div>
       </h1>
       <p class="row text-white">
         Welcome to novo force, a leading research laboratory at the forefront of combining

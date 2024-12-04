@@ -47,62 +47,44 @@ const animateModel = () => {
 const animateCamera = () => {
     const triggerElement = parentEle.value;
     var islookAtCube = false
-
-    // 定义相机看向目标的函数
-    const lookAtCube = () => {
-        camera.fov = 5;
-    };
-
-    const lookAtDefault = () => {
-        camera.fov = 10;
-    };
-
     gsap.to(camera.position, {
         x: cube.position.x,
         y: cube.position.y,
-        z: -5,
-        ease: "none",
-
+        z: cube.position.z,
+        imageRendering: false,
         scrollTrigger: {
             trigger: triggerElement,
             start: "bottom+=200% 50%",
-            end: "bottom+=260% 50%",
-            scrub: 0.2,
+            end: "bottom+=280% 50%",
+            scrub: true,
             markers: false,
             onEnter: () => {
-                console.debug('Entered');
                 islookAtCube = true
-                lookAtCube();
             },
             onLeaveBack: () => {
                 islookAtCube = false
-                console.debug('Left back');
-                lookAtDefault();
-            }
-        },
-        onUpdate: () => {
-            if (islookAtCube) {
-                camera.lookAt(cube.position.x + 0.2, cube.position.y, cube.position.z);
-            }
-            else {
                 camera.lookAt(2, 1, 0);
+                camera.updateProjectionMatrix()
+            },
+            onUpdate: () => {
+                camera.lookAt(cube.position.x, cube.position.y, cube.position.z - 0.01);
+                camera.updateProjectionMatrix()
+                renderer.render(scene, camera);
             }
-            camera.updateProjectionMatrix();
-            renderer.render(scene, camera);
-        },
-        onComplete: () => {
-            const vector = new THREE.Vector3();
-            vector.setFromMatrixPosition(cube.matrixWorld);
-            const screenPosition = vector.clone().project(camera);
-
-            // 将归一化的设备坐标转换为实际的屏幕坐标
-            const widthHalf = 0.5 * renderer.domElement.width;
-            const heightHalf = 0.5 * renderer.domElement.height;
-
-            const x = screenPosition.x * widthHalf + widthHalf;
-            const y = -screenPosition.y * heightHalf + heightHalf;
-            webCacheControl.set('x', x);
-            webCacheControl.set('y', y);
+        }
+    });
+    gsap.to(camera, {
+        fov: 3,
+        scrollTrigger: {
+            trigger: triggerElement,
+            start: "bottom+=200% 50%",
+            end: "bottom+=280% 50%",
+            scrub: true,
+            markers: false,
+            onUpdate: () => {
+                camera.updateProjectionMatrix()
+                renderer.render(scene, camera)
+            }
         }
     });
 };
@@ -126,8 +108,8 @@ const loadModel = () => {
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(10, 10, 10);
     scene.add(directionalLight);
-    // const axesHelper = new THREE.AxesHelper(5); // 参数 5 为坐标轴长度
-    // scene.add(axesHelper);
+    const axesHelper = new THREE.AxesHelper(5); // 参数 5 为坐标轴长度
+    scene.add(axesHelper);
 
     // 加载模型
     const loader = new GLTFLoader();

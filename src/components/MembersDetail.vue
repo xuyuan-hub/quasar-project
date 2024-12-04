@@ -2,10 +2,7 @@
     <div class="gt-sm">
         <div style="overflow: hidden;">
             <div class="container lexend-text" id="horizontal-div">
-                <section ref='firstSpanRef' class="panel gradient-2r-indigo-8-6 flex justify-end">
-                    <div class="box-container">
-                        <div ref='greenBoxRef' class="box bg-green-6"></div>
-                    </div>
+                <section ref='firstSpanRef' class="panel bg-box flex justify-end">
                     <h2 class="text-no-wrap">developing
                         <span class="text-purple-4 most-text">the most</span>
                         advanced technologies.
@@ -28,14 +25,12 @@
 import { onMounted, ref } from 'vue';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { webCacheControl } from 'src/store/webStore';
 
 
 // 注册 ScrollTrigger 插件
 gsap.registerPlugin(ScrollTrigger);
 
 const firstSpanRef = ref(null)
-const greenBoxRef = ref(null)
 const secondSpanRef = ref(null)
 const props = defineProps('first-p', 'rest-p')
 
@@ -65,36 +60,16 @@ onMounted(() => {
             markers: true // 启用滚动调试标记
         }
     });
-    const getInitialPosition = () => {
-        console.log(`x: ${webCacheControl.get('x')}, y:${webCacheControl.get('y')}`)
-        return {
-            x: webCacheControl.get('x'),
-            y: webCacheControl.get('y')
-        }
-    }
     const tl = gsap.timeline({
         scrollTrigger: {
-            trigger: greenBoxRef.value,
-            start: "top 40%",
-            end: "top 40%",
+            trigger: '.most-text',
+            start: "top bottom",
+            duration: 2,
             markers: false,
             onEnter: () => {
-                const { x, y } = getInitialPosition();
-                const boxHeight = greenBoxRef.value.offsetHeight;
-                const bottomY = y + boxHeight - 20;
-                const RobotArm = document.getElementById('robot-arm');
-                RobotArm.style.display = 'none';
-
-                // 添加绿色盒子的动画
-                tl.fromTo(greenBoxRef.value,
-                    { x: x - 100, y: -200, opacity: 1 },
-                    { x: x - 100, y: bottomY, opacity: 1, duration: 2, immediateRender: true }
-                );
-
                 // 添加文本的动画
                 tl.from('.most-text',
                     { fontWeight: 600, fontSize: '9rem', opacity: 0, duration: 1 },
-                    '<'
                 );
             },
             onLeaveBack: () => {
@@ -104,30 +79,14 @@ onMounted(() => {
             }
         }
     });
-
-    // const restParagraph = document.querySelector('.rest-p')
-    // const splitRP = restParagraph.innerText.split(' ').map(char => `<span>${char}</span>`).join(" ")
-    // restParagraph.innerHTML = splitRP
-    // gsap.utils.toArray(restParagraph.querySelectorAll('span')).forEach((ele) => {
-    //     gsap.from(
-    //         ele,
-    //         {
-    //             y: 200,
-    //             opacity: 0,
-    //             scrollTrigger: {
-    //                 trigger: ele,
-    //                 start: "top center",
-    //                 end: "bottom center",
-    //                 markers: true
-    //             }
-    //         }
-
-    //     )
-    // })
 });
 </script>
 
 <style scoped>
+.bg-box {
+    background-color: #5ca67a;
+}
+
 .container {
     width: 500%;
     /* 容器宽度是面板宽度的5倍 */
